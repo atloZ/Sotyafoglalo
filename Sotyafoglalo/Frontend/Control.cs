@@ -124,7 +124,7 @@ namespace Sotyafoglalo
         private void startGameBtn_Click(object sender, EventArgs e)
         {
             jatekTerForm = new JatekTer(this);
-            jatekTerForm.CsapatNevek = csapatNevek;    //dbhelper
+            jatekTerForm.CsapatNevek = csapatNevek;
             jatekTerForm.CsapatSzam = csapatSzam;
 
             if (Screen.AllScreens.Length > 1)
@@ -205,9 +205,9 @@ namespace Sotyafoglalo
 
                 isItValasztos = true;
 
-                tamadoCsapatGroupBox.Text = csapatNevek[lepesek[lepesekIndex]];
-                jatekTerForm.setNextTeamName(csapatNevek[lepesek[lepesekIndex]]);
-                jatekTerForm.Attack(lepesek[lepesekIndex]);
+                t_CsapatGroupBox.Text = csapatNevek[lepesek[lepesekIndex]-1];
+                jatekTerForm.setKovetkezoCsapatNeve(csapatNevek[lepesek[lepesekIndex] - 1]);
+                jatekTerForm.tamadas(lepesek[lepesekIndex]);
 
                 hanyanValaszoltak = 0;
                 eddigiTippekSzama = 0;
@@ -237,12 +237,12 @@ namespace Sotyafoglalo
         {
             if (secNum == -1)
             {
-                vedoCsapatGroupBox.Text = "Ezt a területet nem lehet választani";
+                korNyerteseLabel.Text = "Ezt a területet nem lehet választani";
             }
             else
             {
                 vedoNum = secNum;
-                vedoCsapatGroupBox.Text = csapatNevek[secNum];
+                v_CsapatGroupBox.Text = csapatNevek[secNum-1];
                 kForm = new Kerdesek();
                 kForm.Show();
                 kerdesInditasButton.Enabled = true;
@@ -512,7 +512,6 @@ namespace Sotyafoglalo
                 }
                 else if (v_gyorsabbCheckBox.Checked)
                 {
-                    tForm.displayHelyesValasz();
                     vedoNyert();
                 }
             }
@@ -524,10 +523,10 @@ namespace Sotyafoglalo
                 }
                 else
                 {
-                    tForm.displayHelyesValasz();
-                    korNyerteseLabel.Text = csapatNevek[vedoNum];
+                    korNyerteseLabel.Text = csapatNevek[vedoNum-1];
                 }
             }
+            tForm.displayHelyesValasz();
             lepesekIndex++;
             korInditasButton.Enabled = true;
             kerdesInditasButton.Enabled = false;
@@ -535,17 +534,16 @@ namespace Sotyafoglalo
 
         private void vedoNyert()
         {
-            jatekTerForm.setTeamPoints(vedoNum, 100);
-            korNyerteseLabel.Text = csapatNevek[vedoNum];
+            jatekTerForm.setCsapatPont(vedoNum, 100);
+            korNyerteseLabel.Text = csapatNevek[vedoNum-1];
         }
 
         private void tamadoNyert()
         {
-            jatekTerForm.setTeamPoints(lepesek[lepesekIndex], tamadottErtek);
-            jatekTerForm.setTeamPoints(vedoNum, -tamadottErtek);
+            jatekTerForm.setCsapatPont(lepesek[lepesekIndex], tamadottErtek);
+            jatekTerForm.setCsapatPont(vedoNum, -tamadottErtek);
             jatekTerForm.changeTerulet(tamadottX, tamadottY, lepesek[lepesekIndex], tamadottErtek);
-            tForm.displayHelyesValasz();
-            korNyerteseLabel.Text = csapatNevek[lepesek[lepesekIndex]];
+            korNyerteseLabel.Text = csapatNevek[lepesek[lepesekIndex]-1];
         }
 
         private void ControlForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -558,7 +556,8 @@ namespace Sotyafoglalo
 
         private void gyorsabb1CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //legyen a másik false
+            t_gyorsabbCheckBox.Enabled = !v_gyorsabbCheckBox.Checked;
+            v_gyorsabbCheckBox.Enabled = !t_gyorsabbCheckBox.Checked;
         }
     }
 }

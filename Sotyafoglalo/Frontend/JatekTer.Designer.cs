@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Control));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JatekTer));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.mapContainer = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox36 = new System.Windows.Forms.PictureBox();
@@ -710,6 +710,7 @@
             this.stopperLable.Size = new System.Drawing.Size(74, 17);
             this.stopperLable.TabIndex = 3;
             this.stopperLable.Text = "STOPPER";
+            this.stopperLable.Visible = false;
             // 
             // tableLayoutPanel4
             // 
@@ -876,7 +877,7 @@
             this.point4.TabIndex = 3;
             this.point4.Text = "Pont:";
             // 
-            // mainLayout
+            // JatekTer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -885,12 +886,12 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "mainLayout";
+            this.Name = "JatekTer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Sotyafoglaló";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.JatekTer_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.JatekTer_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.mapContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox36)).EndInit();

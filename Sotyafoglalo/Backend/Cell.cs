@@ -9,46 +9,36 @@ namespace Sotyafoglalo
 {
     public class Cell
     {
-
-        public static readonly int OCCUPIED_BY_TEAM_1 = 0;
-        public static readonly int OCCUPIED_BY_TEAM_2 = 1;
-        public static readonly int OCCUPIED_BY_TEAM_3 = 2;
-        public static readonly int OCCUPIED_BY_TEAM_4 = 3;
-        public static readonly int FORTRESS_FIELD = 5;
-        public static readonly int REGULAR_FIELD = 6;
-        public static readonly int FORTRESS_FIELD_VALUE = 0;
-        public static readonly int INNER_FIELD_VALUE = 300;
-        public static readonly int OUTER_FIELD_VALUE = 400;
+        public static readonly int CSAPAT_1 = 1;
+        public static readonly int CSAPAT_2 = 2;
+        public static readonly int CSAPAT_3 = 3;
+        public static readonly int CSAPAT_4 = 4;
+        public static readonly int VAR_MEZO_ERTEK = 0;
+        public static readonly int BELSO_MEZO_ERTEK = 300;
+        public static readonly int KULSO_MEZO_ERTEK = 400;
         private PictureBox picBoxRef;
-        private readonly int type;
-        private int fieldOwner;
-        private int valueOfField;
+        private int mezoTulaj;
+        private int mezoErteke;
 
-        public Cell(int requiredType, int requiredfieldOwner, PictureBox picBox, int valueOfField)
+        public Cell(int requiredfieldOwner, PictureBox picBox, int valueOfField)
         {
-            this.type = requiredType;
-            this.fieldOwner = requiredfieldOwner;
+            this.mezoTulaj = requiredfieldOwner;
             this.picBoxRef = picBox;
-            this.valueOfField = valueOfField;
+            this.mezoErteke = valueOfField;
         }
 
-        public int getType()
+        public int getMezoTulaj()
         {
-            return type;
+            return mezoTulaj;
         }
 
-        public int getFieldOwner()
+        public void mezoTulajValtas(int requiredFieldOwner)
         {
-            return fieldOwner;
+            mezoTulaj = requiredFieldOwner;
         }
-
-        public void changeFieldOwner(int requiredFieldOwner)
+        public int getErtek()
         {
-            fieldOwner = requiredFieldOwner;
-        }
-        public int getValue()
-        {
-            return valueOfField;
+            return mezoErteke;
         }
 
         public PictureBox getPBox()

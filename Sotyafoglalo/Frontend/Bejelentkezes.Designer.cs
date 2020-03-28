@@ -41,7 +41,8 @@
             // 
             // csapatSzamNumericUpDown
             // 
-            this.csapatSzamNumericUpDown.Location = new System.Drawing.Point(117, 7);
+            this.csapatSzamNumericUpDown.Location = new System.Drawing.Point(156, 9);
+            this.csapatSzamNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.csapatSzamNumericUpDown.Maximum = new decimal(new int[] {
             4,
             0,
@@ -54,7 +55,7 @@
             0});
             this.csapatSzamNumericUpDown.Name = "csapatSzamNumericUpDown";
             this.csapatSzamNumericUpDown.ReadOnly = true;
-            this.csapatSzamNumericUpDown.Size = new System.Drawing.Size(120, 20);
+            this.csapatSzamNumericUpDown.Size = new System.Drawing.Size(160, 22);
             this.csapatSzamNumericUpDown.TabIndex = 0;
             this.csapatSzamNumericUpDown.Value = new decimal(new int[] {
             2,
@@ -66,17 +67,19 @@
             // csapatSzamLabel
             // 
             this.csapatSzamLabel.AutoSize = true;
-            this.csapatSzamLabel.Location = new System.Drawing.Point(12, 9);
+            this.csapatSzamLabel.Location = new System.Drawing.Point(16, 11);
+            this.csapatSzamLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.csapatSzamLabel.Name = "csapatSzamLabel";
-            this.csapatSzamLabel.Size = new System.Drawing.Size(85, 13);
+            this.csapatSzamLabel.Size = new System.Drawing.Size(112, 17);
             this.csapatSzamLabel.TabIndex = 1;
             this.csapatSzamLabel.Text = "Csapatok száma";
             // 
             // csapatSzamButton
             // 
-            this.csapatSzamButton.Location = new System.Drawing.Point(255, 7);
+            this.csapatSzamButton.Location = new System.Drawing.Point(340, 9);
+            this.csapatSzamButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.csapatSzamButton.Name = "csapatSzamButton";
-            this.csapatSzamButton.Size = new System.Drawing.Size(75, 23);
+            this.csapatSzamButton.Size = new System.Drawing.Size(100, 28);
             this.csapatSzamButton.TabIndex = 2;
             this.csapatSzamButton.Text = "OK";
             this.csapatSzamButton.UseVisualStyleBackColor = true;
@@ -85,25 +88,28 @@
             // csapatNevLabel
             // 
             this.csapatNevLabel.AutoSize = true;
-            this.csapatNevLabel.Location = new System.Drawing.Point(13, 38);
+            this.csapatNevLabel.Location = new System.Drawing.Point(17, 47);
+            this.csapatNevLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.csapatNevLabel.Name = "csapatNevLabel";
-            this.csapatNevLabel.Size = new System.Drawing.Size(79, 13);
+            this.csapatNevLabel.Size = new System.Drawing.Size(103, 17);
             this.csapatNevLabel.TabIndex = 3;
             this.csapatNevLabel.Text = "1. Csapat neve";
             // 
             // csapatNevTextBox
             // 
-            this.csapatNevTextBox.Location = new System.Drawing.Point(117, 38);
+            this.csapatNevTextBox.Location = new System.Drawing.Point(156, 47);
+            this.csapatNevTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.csapatNevTextBox.Name = "csapatNevTextBox";
-            this.csapatNevTextBox.Size = new System.Drawing.Size(120, 20);
+            this.csapatNevTextBox.Size = new System.Drawing.Size(159, 22);
             this.csapatNevTextBox.TabIndex = 4;
             this.csapatNevTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown);
             // 
             // csapatNevButton
             // 
-            this.csapatNevButton.Location = new System.Drawing.Point(255, 38);
+            this.csapatNevButton.Location = new System.Drawing.Point(340, 47);
+            this.csapatNevButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.csapatNevButton.Name = "csapatNevButton";
-            this.csapatNevButton.Size = new System.Drawing.Size(75, 23);
+            this.csapatNevButton.Size = new System.Drawing.Size(100, 28);
             this.csapatNevButton.TabIndex = 5;
             this.csapatNevButton.Text = "OK";
             this.csapatNevButton.UseVisualStyleBackColor = true;
@@ -111,19 +117,20 @@
             // 
             // alapButton
             // 
-            this.alapButton.Location = new System.Drawing.Point(255, 82);
+            this.alapButton.Location = new System.Drawing.Point(340, 101);
+            this.alapButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.alapButton.Name = "alapButton";
-            this.alapButton.Size = new System.Drawing.Size(75, 23);
+            this.alapButton.Size = new System.Drawing.Size(100, 28);
             this.alapButton.TabIndex = 6;
             this.alapButton.Text = "Alap";
             this.alapButton.UseVisualStyleBackColor = true;
             this.alapButton.Click += new System.EventHandler(this.alapButton_Click);
             // 
-            // Bevitel
+            // Bejelentkezes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 117);
+            this.ClientSize = new System.Drawing.Size(473, 144);
             this.Controls.Add(this.alapButton);
             this.Controls.Add(this.csapatNevButton);
             this.Controls.Add(this.csapatNevTextBox);
@@ -132,7 +139,8 @@
             this.Controls.Add(this.csapatSzamLabel);
             this.Controls.Add(this.csapatSzamNumericUpDown);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Bevitel";
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "Bejelentkezes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bevitel";
             this.Load += new System.EventHandler(this.Bevitel_Load);

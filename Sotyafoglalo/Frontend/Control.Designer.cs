@@ -34,11 +34,11 @@
             this.v_valaszDomainUpDown = new System.Windows.Forms.DomainUpDown();
             this.t_kerdesOKButton = new System.Windows.Forms.Button();
             this.v_kerdesOKButton = new System.Windows.Forms.Button();
-            this.tamadoCsapatGroupBox = new System.Windows.Forms.GroupBox();
+            this.t_CsapatGroupBox = new System.Windows.Forms.GroupBox();
             this.t_tippOKButton = new System.Windows.Forms.Button();
             this.t_tippTextBox = new System.Windows.Forms.TextBox();
             this.t_gyorsabbCheckBox = new System.Windows.Forms.CheckBox();
-            this.vedoCsapatGroupBox = new System.Windows.Forms.GroupBox();
+            this.v_CsapatGroupBox = new System.Windows.Forms.GroupBox();
             this.v_tippOKButton = new System.Windows.Forms.Button();
             this.v_tippTextBox = new System.Windows.Forms.TextBox();
             this.v_gyorsabbCheckBox = new System.Windows.Forms.CheckBox();
@@ -50,8 +50,8 @@
             this.kerdesInditasButton = new System.Windows.Forms.Button();
             this.kerdesekSzamaLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tamadoCsapatGroupBox.SuspendLayout();
-            this.vedoCsapatGroupBox.SuspendLayout();
+            this.t_CsapatGroupBox.SuspendLayout();
+            this.v_CsapatGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // t_valaszDomainUpDown
@@ -102,21 +102,21 @@
             this.v_kerdesOKButton.UseVisualStyleBackColor = true;
             this.v_kerdesOKButton.Click += new System.EventHandler(this.okButton2_Click);
             // 
-            // tamadoCsapatGroupBox
+            // t_CsapatGroupBox
             // 
-            this.tamadoCsapatGroupBox.Controls.Add(this.t_tippOKButton);
-            this.tamadoCsapatGroupBox.Controls.Add(this.t_tippTextBox);
-            this.tamadoCsapatGroupBox.Controls.Add(this.t_gyorsabbCheckBox);
-            this.tamadoCsapatGroupBox.Controls.Add(this.t_valaszDomainUpDown);
-            this.tamadoCsapatGroupBox.Controls.Add(this.t_kerdesOKButton);
-            this.tamadoCsapatGroupBox.Location = new System.Drawing.Point(15, 90);
-            this.tamadoCsapatGroupBox.Margin = new System.Windows.Forms.Padding(4);
-            this.tamadoCsapatGroupBox.Name = "tamadoCsapatGroupBox";
-            this.tamadoCsapatGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.tamadoCsapatGroupBox.Size = new System.Drawing.Size(160, 192);
-            this.tamadoCsapatGroupBox.TabIndex = 3;
-            this.tamadoCsapatGroupBox.TabStop = false;
-            this.tamadoCsapatGroupBox.Text = "TámadóCsapat";
+            this.t_CsapatGroupBox.Controls.Add(this.t_tippOKButton);
+            this.t_CsapatGroupBox.Controls.Add(this.t_tippTextBox);
+            this.t_CsapatGroupBox.Controls.Add(this.t_gyorsabbCheckBox);
+            this.t_CsapatGroupBox.Controls.Add(this.t_valaszDomainUpDown);
+            this.t_CsapatGroupBox.Controls.Add(this.t_kerdesOKButton);
+            this.t_CsapatGroupBox.Location = new System.Drawing.Point(15, 90);
+            this.t_CsapatGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.t_CsapatGroupBox.Name = "t_CsapatGroupBox";
+            this.t_CsapatGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.t_CsapatGroupBox.Size = new System.Drawing.Size(160, 192);
+            this.t_CsapatGroupBox.TabIndex = 3;
+            this.t_CsapatGroupBox.TabStop = false;
+            this.t_CsapatGroupBox.Text = "TámadóCsapat";
             // 
             // t_tippOKButton
             // 
@@ -153,21 +153,21 @@
             this.t_gyorsabbCheckBox.Visible = false;
             this.t_gyorsabbCheckBox.CheckedChanged += new System.EventHandler(this.gyorsabb1CheckBox_CheckedChanged);
             // 
-            // vedoCsapatGroupBox
+            // v_CsapatGroupBox
             // 
-            this.vedoCsapatGroupBox.Controls.Add(this.v_tippOKButton);
-            this.vedoCsapatGroupBox.Controls.Add(this.v_tippTextBox);
-            this.vedoCsapatGroupBox.Controls.Add(this.v_gyorsabbCheckBox);
-            this.vedoCsapatGroupBox.Controls.Add(this.v_valaszDomainUpDown);
-            this.vedoCsapatGroupBox.Controls.Add(this.v_kerdesOKButton);
-            this.vedoCsapatGroupBox.Location = new System.Drawing.Point(232, 90);
-            this.vedoCsapatGroupBox.Margin = new System.Windows.Forms.Padding(4);
-            this.vedoCsapatGroupBox.Name = "vedoCsapatGroupBox";
-            this.vedoCsapatGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.vedoCsapatGroupBox.Size = new System.Drawing.Size(161, 192);
-            this.vedoCsapatGroupBox.TabIndex = 4;
-            this.vedoCsapatGroupBox.TabStop = false;
-            this.vedoCsapatGroupBox.Text = "VédőCsapat";
+            this.v_CsapatGroupBox.Controls.Add(this.v_tippOKButton);
+            this.v_CsapatGroupBox.Controls.Add(this.v_tippTextBox);
+            this.v_CsapatGroupBox.Controls.Add(this.v_gyorsabbCheckBox);
+            this.v_CsapatGroupBox.Controls.Add(this.v_valaszDomainUpDown);
+            this.v_CsapatGroupBox.Controls.Add(this.v_kerdesOKButton);
+            this.v_CsapatGroupBox.Location = new System.Drawing.Point(232, 90);
+            this.v_CsapatGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.v_CsapatGroupBox.Name = "v_CsapatGroupBox";
+            this.v_CsapatGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.v_CsapatGroupBox.Size = new System.Drawing.Size(161, 192);
+            this.v_CsapatGroupBox.TabIndex = 4;
+            this.v_CsapatGroupBox.TabStop = false;
+            this.v_CsapatGroupBox.Text = "VédőCsapat";
             // 
             // v_tippOKButton
             // 
@@ -202,6 +202,7 @@
             this.v_gyorsabbCheckBox.Text = "Gyorsabb";
             this.v_gyorsabbCheckBox.UseVisualStyleBackColor = true;
             this.v_gyorsabbCheckBox.Visible = false;
+            this.v_gyorsabbCheckBox.CheckedChanged += new System.EventHandler(this.gyorsabb1CheckBox_CheckedChanged);
             // 
             // korNyerteseLabel
             // 
@@ -287,7 +288,7 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "ControlForm";
             // 
-            // ControlForm
+            // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -299,20 +300,20 @@
             this.Controls.Add(this.jatekInditasButton);
             this.Controls.Add(this.stopperLabel);
             this.Controls.Add(this.korNyerteseLabel);
-            this.Controls.Add(this.vedoCsapatGroupBox);
-            this.Controls.Add(this.tamadoCsapatGroupBox);
+            this.Controls.Add(this.v_CsapatGroupBox);
+            this.Controls.Add(this.t_CsapatGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "ControlForm";
+            this.Name = "Control";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ControlForm";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ControlForm_FormClosing);
             this.Load += new System.EventHandler(this.ControlForm_Load);
-            this.tamadoCsapatGroupBox.ResumeLayout(false);
-            this.tamadoCsapatGroupBox.PerformLayout();
-            this.vedoCsapatGroupBox.ResumeLayout(false);
-            this.vedoCsapatGroupBox.PerformLayout();
+            this.t_CsapatGroupBox.ResumeLayout(false);
+            this.t_CsapatGroupBox.PerformLayout();
+            this.v_CsapatGroupBox.ResumeLayout(false);
+            this.v_CsapatGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,9 +325,9 @@
         private System.Windows.Forms.DomainUpDown v_valaszDomainUpDown;
         private System.Windows.Forms.Button t_kerdesOKButton;
         private System.Windows.Forms.Button v_kerdesOKButton;
-        private System.Windows.Forms.GroupBox tamadoCsapatGroupBox;
+        private System.Windows.Forms.GroupBox t_CsapatGroupBox;
         private System.Windows.Forms.CheckBox t_gyorsabbCheckBox;
-        private System.Windows.Forms.GroupBox vedoCsapatGroupBox;
+        private System.Windows.Forms.GroupBox v_CsapatGroupBox;
         private System.Windows.Forms.CheckBox v_gyorsabbCheckBox;
         private System.Windows.Forms.Label korNyerteseLabel;
         private System.Windows.Forms.Timer timer1;

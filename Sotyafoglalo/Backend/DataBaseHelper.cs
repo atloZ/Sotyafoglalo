@@ -153,7 +153,6 @@ namespace Sotyafoglalo
                                                   valaszok[1],
                                                   valaszok[2],
                                                   i));
-                                System.Windows.Forms.MessageBox.Show(adatok[i].getKerdes()+ adatok[i].getJoValasz()+ adatok[i].getRossz1()+ adatok[i].getRossz2()+ adatok[i].getRossz3());
                                 kerdes = "";
                                 jovalasz = "";
                                 valaszok = new List<string>();
