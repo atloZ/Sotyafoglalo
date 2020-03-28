@@ -61,7 +61,7 @@
             0,
             0,
             0});
-            this.csapatSzamNumericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CsapatNevTextBox_KeyDown);
+            this.csapatSzamNumericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown);
             // 
             // csapatSzamLabel
             // 
@@ -97,7 +97,7 @@
             this.csapatNevTextBox.Name = "csapatNevTextBox";
             this.csapatNevTextBox.Size = new System.Drawing.Size(120, 20);
             this.csapatNevTextBox.TabIndex = 4;
-            this.csapatNevTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CsapatNevTextBox_KeyDown);
+            this.csapatNevTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown);
             // 
             // csapatNevButton
             // 

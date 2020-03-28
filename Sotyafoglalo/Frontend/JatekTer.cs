@@ -137,9 +137,6 @@ namespace Sotyafoglalo
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    //int cellaTipus = -1;
-                    //int cellaTulaj = -1;
-                    //int cellaErtek = -1;
                     Image cellaKep = Properties.Resources.kek400;
 
                     string jelenlegiCella = terkep[terkepSzamlalo];
@@ -151,12 +148,6 @@ namespace Sotyafoglalo
                     terkepSzamlalo++;
                 }
             }
-        }
-
-        private void mainLayout_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Bejelentkezes obj = (Bejelentkezes)Application.OpenForms["Bevitel"];
-            obj.Close();
         }
 
         private bool tamadhatoE(int tamadocsapatSzam, int tamadandoX, int tamadandoY)
@@ -275,6 +266,12 @@ namespace Sotyafoglalo
 
             cells[x, y].getPBox().Image = (Image)Properties.Resources.ResourceManager.GetObject(kepID);
             cells[x, y].getPBox().Refresh();
+        }
+        
+        private void JatekTer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Bejelentkezes obj = (Bejelentkezes)Application.OpenForms["Bevitel"];
+            obj.Close();
         }
     }
 }

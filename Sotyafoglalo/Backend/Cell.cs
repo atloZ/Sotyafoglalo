@@ -55,6 +55,5 @@ namespace Sotyafoglalo
         {
             return picBoxRef;
         }
-
     }
 }

@@ -17,10 +17,7 @@ namespace Sotyafoglalo
 
         private Boolean elsoFutas = true;
 
-        private string KerdesekPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Paveszka Márk Rekenei Zolta\Sotyafoglaló\kerdesek.txt";
-        private string TippkerdesekPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Paveszka Márk Rekenei Zolta\Sotyafoglaló\tippkerdesek.txt";
-
-        private int szamlalo = 1;
+        private int szamlalo;
         private int iskolaNevIndex;
         private string[] iskolaNev = { "Arany", "Benedek", "Dr. Mező alsó", "Dr. Mező felső", "Dr. Török Béla", "Heltai", "Herman alsó", "Herman felső	", "Hunyadi", "Jókai", "Jókai", "Kaffka", "Liszt", "Móra", "Munkácsy alsó", "Munkácsy felső", "Németh Imre", "Széchenyi", "Vakok" };
 
@@ -36,10 +33,6 @@ namespace Sotyafoglalo
         public static string CsapatNev3 { get => csapatNev3; }
         public static string CsapatNev4 { get => csapatNev4; }
 
-        //public string KerdesekPath1 = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Paveszka Márk Rekenei Zolta\Sotyafoglaló\kerdesek.txt";
-        public string KerdesekPath1 { get => KerdesekPath; }
-        public string TippkerdesekPath1 { get => TippkerdesekPath; }
-
         public Bejelentkezes()
         {
             InitializeComponent();
@@ -48,57 +41,6 @@ namespace Sotyafoglalo
 
         private void Bevitel_Load(object sender, EventArgs e)
         {
-            if (elsoFutas)
-            {
-
-                #region mapparendszer és fájlok létrehozása
-                try
-                {
-                    string MappaPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Paveszka Márk Rekenei Zolta\Sotyafoglaló\";
-
-                    bool mappa = Directory.Exists(MappaPath);
-                    if (!mappa)
-                    {
-                        Directory.CreateDirectory(MappaPath);
-                        MessageBox.Show("Eltüntek a frappáns kérdéseid!\nBajban vagy!");
-                    }
-
-                    if (!File.Exists(KerdesekPath))
-                    {
-                        MessageBox.Show("Eltünt de csináltam neked másik 'kerdesek.txt'\n" + KerdesekPath);
-                        File.Open(KerdesekPath, FileMode.Create).Close();
-                    }
-                    StreamReader streamReader = new StreamReader(KerdesekPath);
-                    if (streamReader.ReadToEnd() == "")
-                    {
-                        MessageBox.Show("Hoppá nincsenek kérdéseid...\nÜres a 'kerdesek.txt'");
-                    }
-
-                    if (!File.Exists(TippkerdesekPath))
-                    {
-                        MessageBox.Show("Eltünt de csináltam neked másik 'Tippkerdesek.txt'\n" + TippkerdesekPath);
-                        File.Open(TippkerdesekPath, FileMode.Create).Close();
-                    }
-                    streamReader = new StreamReader(TippkerdesekPath);
-                    if (streamReader.ReadToEnd() == "")
-                    {
-                        MessageBox.Show("Hoppá nincsenek tippkérdéseid...\nÜres a 'tippkerdesek.txt'");
-                    }
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("Futtas rendszergazda ként mert igy nincs jogom!");
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Liba van a mátrixban!!!\n" + ex);
-                }
-                #endregion
-
-                elsoFutas = false;
-            }
-
             szamlalo = 1;
 
             csapatSzam = 0;
@@ -134,28 +76,17 @@ namespace Sotyafoglalo
         private void csapatNevButton_Click(object sender, EventArgs e)
         {
             iskolaNevIndex = 0;
-            if (csapatNevTextBox.Text != "" && csapatNevTextBox.Text != controlForm.CsapatNevek[0] && csapatNevTextBox.Text != controlForm.CsapatNevek[1] && csapatNevTextBox.Text != controlForm.CsapatNevek[2])
+            bool vanE = csapatNevTextBox.Text != controlForm.CsapatNevek[0] && 
+                csapatNevTextBox.Text != controlForm.CsapatNevek[1] && 
+                csapatNevTextBox.Text != controlForm.CsapatNevek[2];
+
+            if (csapatNevTextBox.Text != "" && vanE)
             {
                 csapatNevLabel.Text = (szamlalo + 1) + ". Csapat neve:";
 
-                if (szamlalo == 1)
+                if (szamlalo <=4 && szamlalo >= 1)
                 {
-                    controlForm.CsapatNevek[0] = csapatNevTextBox.Text;
-                    csapatNevTextBox.Clear();
-                }
-                else if (szamlalo == 2)
-                {
-                    controlForm.CsapatNevek[1] = csapatNevTextBox.Text;
-                    csapatNevTextBox.Clear();
-                }
-                else if (szamlalo == 3)
-                {
-                    controlForm.CsapatNevek[2] = csapatNevTextBox.Text;
-                    csapatNevTextBox.Clear();
-                }
-                else if (szamlalo == 4)
-                {
-                    controlForm.CsapatNevek[3] = csapatNevTextBox.Text;
+                    controlForm.CsapatNevek[szamlalo-1] = csapatNevTextBox.Text;
                     csapatNevTextBox.Clear();
                 }
 
@@ -177,7 +108,7 @@ namespace Sotyafoglalo
             }
         }
 
-        private void CsapatNevTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {

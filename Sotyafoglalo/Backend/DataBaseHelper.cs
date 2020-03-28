@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Sotyafoglalo.Backend;
 using System;
 using System.Collections.Generic;
 using System.Xml;
@@ -8,12 +9,12 @@ namespace Sotyafoglalo
     class DataBaseHelper
     {
         #region Változok
-        private static readonly string connString = "Server=localhost;Port=3306;Database=sotyafoglalo_db;Uid=Sotyafoglalo;Pwd=pin;";
+        private static readonly string connString = "Server=localhost;Port=3306;Database=db_sotyafoglalo;Uid=Sotyafoglalo;Pwd=pin;";
         private static MySqlConnection conn = null;
         private static MySqlCommand cmd = null;
         #endregion
 
-        #region csatlakozás és tábla teszt
+        #region Csatlakozás és tábla teszt
         private static string getConnString()
         {
             string s = "";
@@ -100,10 +101,7 @@ namespace Sotyafoglalo
                 tablaOK =
                     tablaVanE("kerdesek") == true &&
                     tablaVanE("valaszok") == true &&
-                    tablaVanE("tippkerdes") == true &&
-                    tablaVanE("csapat") == true &&
-                    tablaVanE("meccs") == true &&
-                    tablaVanE("kor") == true
+                    tablaVanE("tippkerdes") == true
                         ? true : false;
             }
             catch (Exception)
@@ -113,318 +111,140 @@ namespace Sotyafoglalo
         }
         #endregion
 
-        #region adatfelvétel
-        public static int addUjMeccs()
+        #region Funkciók
+        public static List<Kerdes> getKerdesek()
         {
-            int id = -1;
-            try
-            {
-                cmd = new MySqlCommand("call UjMeccs()", conn);
-                id = Convert.ToInt32(cmd.ExecuteScalar());
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Meccs létrehozási hiba");
-            }
-            return id;
-        }
-
-        public static void addUjKerdes(string kerdes, string[] valasz)
-        {
-            switch (valasz.Length)
-            {
-                case 1:
-                    {
-                        cmd = new MySqlCommand(
-                            @"INSERT INTO `tippkerdes`" +
-                            "(" +
-                                "`kerdes`, " +
-                                "`valasz`" +
-                            ") " +
-                            "VALUES " +
-                            "(" +
-                                "@kerdes," +
-                                "@valasz" +
-                            ")", conn);
-
-                        cmd.Parameters.AddWithValue("@kerdes", kerdes);
-                        cmd.Parameters.AddWithValue("@valasz", valasz[0]);
-                        cmd.ExecuteNonQuery();
-                    }
-                    break;
-                case 4:
-                    {
-                        cmd = new MySqlCommand(
-                            @"CALL addKerdesWithValasz(" +
-                                "@kerdes, " +
-                                "@hvalasz, " +
-                                "@valasz2, " +
-                                "@valasz3, " +
-                                "@valasz4" +
-                            ")", conn);
-
-                            cmd.Parameters.AddWithValue("@kerdes", kerdes);
-                            cmd.Parameters.AddWithValue("@hvalasz", valasz[0]);
-                            cmd.Parameters.AddWithValue("@valasz2", valasz[1]);
-                            cmd.Parameters.AddWithValue("@valasz3", valasz[2]);
-                            cmd.Parameters.AddWithValue("@valasz4", valasz[3]);
-                            cmd.ExecuteNonQuery();
-                    }
-                    break;
-                default:
-                    throw new Exception("Hibás kérdésfelvétel, probálja ujra!");
-            }
-        }
-
-        public static int addUjKor(int kerdesId, int tamadoCsapatId, int vedekezoCsapatId)
-        {
-            int korId = -1;
+            List<Kerdes> adatok = new List<Kerdes>();
             try
             {
                 cmd = new MySqlCommand(
-                    "call creatUjKor(@kerdesId, @tcsapatId, @vcsapatId);",
-                conn);
-
-                cmd.Parameters.AddWithValue("@kerdesId", kerdesId);
-                cmd.Parameters.AddWithValue("@tcsapatId", tamadoCsapatId);
-                cmd.Parameters.AddWithValue("@vcsapatId", vedekezoCsapatId);
-                korId = Convert.ToInt32(cmd.ExecuteScalar());
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Hiba történt a kör létrehozása során");
-            }
-
-            return korId;
-        }
-        
-        public static void addUjCsapat(string nev, int pont, int meccsId)
-        {
-            try
-            {
-                cmd = new MySqlCommand(
-                    @"INSERT INTO `csapat`" +
-                    "(" +
-                        "`nev`, " +
-                        "`elertPont`, " +
-                        "`meccs_id`" +
-                    ") " +
-                    "VALUES " +
-                    "(" +
-                        "@nev," +
-                        "@pont," +
-                        "@meccs_id" +
-                    ")"
+                    "SELECT k.kerdes, v.valasz, v.valaszHelyesE FROM kerdesek as k LEFT JOIN valaszok as v on k.id = v.kerdes_id ORDER BY k.kerdes;"
                     , conn);
 
-                cmd.Parameters.AddWithValue("@nev", nev);
-                cmd.Parameters.AddWithValue("@pont", pont);
-                cmd.Parameters.AddWithValue("@meccs_id", meccsId);
-
                 cmd.ExecuteNonQuery();
-            }
-            catch (MySqlException e) { }
-        }
-        
-        public static void addTamadoCsapatValasz(int korId, int tamadoValaszId)
-        {
-            try
-            {
-                cmd = new MySqlCommand(
-                    "UPDATE `kor` " +
-                    "SET `tamadoCsapat_valasz_id`= @tamadoValaszId " +
-                    "WHERE `id` = @korId;",
-                conn);
 
-                cmd.Parameters.AddWithValue("@korId", korId);
-                cmd.Parameters.AddWithValue("@tamadoValaszId", tamadoValaszId);
-                korId = Convert.ToInt32(cmd.ExecuteScalar());
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Hiba történt a támadó csapat válasza rögzitése közben");
-            }
-        }
-        
-        public static void addVedekezoCsapatValasz(int korId, int vedoValaszId)
-        {
-            try
-            {
-                cmd = new MySqlCommand(
-                    "UPDATE `kor` " +
-                    "SET `vedekezoCsapat_valasz_id`= @vedekezoValaszId " +
-                    "WHERE `id` = @korId;",
-                conn);
-
-                cmd.Parameters.AddWithValue("@korId", korId);
-                cmd.Parameters.AddWithValue("@vedekezoValaszId", vedoValaszId);
-                korId = Convert.ToInt32(cmd.ExecuteScalar());
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Hiba történt a támadó csapat válasza rögzitése közben");
-            }
-        }
-        #endregion
-
-        #region adatlekérdezések
-        public static string[] getCsapatokNeve(int meccsId)
-        {
-            List<string> csapatNevek = new List<string>();
-            try
-            {
-                cmd = new MySqlCommand(
-                    "SELECT `nev` " +
-                    "FROM `csapat` " +
-                    "WHERE `meccs_id` = @meccsId"
-                , conn);
-
-                cmd.Parameters.AddWithValue("@csapatId", meccsId);
                 using (var myReader = cmd.ExecuteReader())
                 {
-                    int index = 0;
+                    String kerdes = "";
+                    String jovalasz = "";
+                    List<String> valaszok = new List<string>();
+                    int i = 0;
+                    for (int j = 1; j <= 4; j++)
+                    {
+                        if (myReader.Read())
+                        {
+                            if (j == 1)
+                            {
+                                kerdes = myReader.GetString(0);
+                            }
+                            if (myReader.GetInt32(2) == 1)
+                            {
+                                jovalasz = myReader.GetString(1);
+                            }
+                            else
+                            {
+                                valaszok.Add(myReader.GetString(1));
+                            }
+                            if (j == 4)
+                            {
+                                adatok.Add(new Kerdes(kerdes,
+                                                  jovalasz,
+                                                  valaszok[0],
+                                                  valaszok[1],
+                                                  valaszok[2],
+                                                  i));
+                                System.Windows.Forms.MessageBox.Show(adatok[i].getKerdes()+ adatok[i].getJoValasz()+ adatok[i].getRossz1()+ adatok[i].getRossz2()+ adatok[i].getRossz3());
+                                kerdes = "";
+                                jovalasz = "";
+                                valaszok = new List<string>();
+                                i++;
+                                j = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Hiba lépet fel az adatbázis létrehozása közben!");
+            }
+
+            return adatok;
+        }
+        
+        public static List<TippKerdes> getTippKerdesek()
+        {
+            List<TippKerdes> adatok = new List<TippKerdes>();
+            try
+            {
+                cmd = new MySqlCommand(
+                    "SELECT `kerdes`, `valasz` FROM `tippkerdes`"
+                    , conn);
+
+                cmd.ExecuteNonQuery();
+
+                using (var myReader = cmd.ExecuteReader())
+                {
+                    int i = 0;
                     while (myReader.Read())
                     {
-                        csapatNevek[index] = myReader.GetString(0);
-                        index++;
+                        adatok.Add(new TippKerdes(myReader.GetString(0),
+                                                Convert.ToInt32(myReader.GetString(1)),
+                                                i));
+                        i++;
                     }
                 }
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("Hiba lépet fel az adatbázis létrehozása közben!");
             }
-            return csapatNevek.ToArray();
+
+            return adatok;
+        }
+
+        public static void addUjKerdes(string kerdes, string helyesValasz, string valasz2, string valasz3, string valasz4)
+        {
+            try
+            {
+                cmd = new MySqlCommand(
+                    "call addKerdesWithValasz(" +
+                        "@kerdes, " +
+                        "@helyesValasz, " +
+                        "@valasz2, " +
+                        "@valasz3, " +
+                        "@valasz4" +
+                    ")", conn);
+
+                cmd.Parameters.AddWithValue("@kerdes", kerdes);
+                cmd.Parameters.AddWithValue("@helyesValasz", helyesValasz);
+                cmd.Parameters.AddWithValue("@valasz2", valasz2);
+                cmd.Parameters.AddWithValue("@valasz3", valasz3);
+                cmd.Parameters.AddWithValue("@valasz4", valasz4);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Sikertelen kérdésfelvétel!");
+            }
         }
         
-        public static string getCsapatNeve(int csapatId)
-        {
-            cmd = new MySqlCommand(
-                "SELECT `nev` " +
-                "FROM `csapat` " +
-                "WHERE `id` = @csapatId", 
-                conn);
-
-            cmd.Parameters.AddWithValue("@csapatId", csapatId);
-            return cmd.ExecuteScalar().ToString();
-        }
-        
-        public static int getUjKerdesId(int meccsId)
-        {
-            int ujKerdesId;
-
-            try
-            {
-                cmd = new MySqlCommand("call getKovetkezoKerdes(@meccsId)", conn);
-
-                cmd.Parameters.AddWithValue("@meccsId", meccsId);
-                ujKerdesId = Convert.ToInt32(cmd.ExecuteScalar());
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw new Exception("nem található új kerdés ehhez a meccshez");
-            }
-
-            return ujKerdesId;
-        }
-
-        public static string getKerdesString(int Id)
-        {
-            string s = "";
-            try
-            {
-                cmd = new MySqlCommand(
-                    "SELECT `kerdes` " +
-                    "FROM `kerdesek` " +
-                    "WHERE `id`= @kerdesId", conn);
-                cmd.Parameters.AddWithValue("@kerdesId", Id);
-                cmd.ExecuteNonQuery();
-                s = (cmd.ExecuteScalar()).ToString();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return s;
-        }
-
-        public static string[] getValaszok(int kerdesId)
-        {
-            string[] valaszok = new string[4];
-            
-            try
-            {
-                cmd = new MySqlCommand(
-                    "SELECT `valasz` " +
-                    "FROM `valaszok` " +
-                    "WHERE `kerdes_id` = @kerdesId " +
-                    "ORDER BY RAND();"
-                , conn);
-
-                cmd.Parameters.AddWithValue("@kerdesId", kerdesId);
-                cmd.ExecuteNonQuery();
-
-                using (var myReader = cmd.ExecuteReader())
-                {
-                    int index = 0;
-                    while (myReader.Read())
-                    {
-                        valaszok[index] = myReader.GetString(0);
-                        index++;
-                    }
-                }
-            }
-            catch (Exception e){}
-
-            return valaszok;
-        }
-
-        public static string getKerdesHelyesValasza(int kerdesId)
-        {
-            string s = "";
-            try
-            {
-                cmd = new MySqlCommand(
-                    "SELECT `valasz` " +
-                    "FROM valaszok " +
-                    "WHERE `kerdes_id` = @kerdesId " +
-                        "and `valaszHelyesE` = true;"
-                , conn);
-
-                cmd.Parameters.AddWithValue("@kerdesId", kerdesId);
-                cmd.ExecuteNonQuery();
-                s = (cmd.ExecuteScalar()).ToString();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return s;
-        }
-
-        public static void csapatPontFrisites(string csapatnev, int pont)
+        public static void addUjTippKerdes(string kerdes, int Valasz)
         {
             try
             {
                 cmd = new MySqlCommand(
-                    "UPDATE `csapat` " +
-                    "SET `elertPont`= @pont " +
-                    "WHERE `nev`= @csapatnev"
-                , conn);
+                    "INSERT INTO `tippkerdes`(`kerdes`, `valasz`) VALUES (@kerdes, @valasz)", conn);
 
-                cmd.Parameters.AddWithValue("@csapatnev", csapatnev);
-                cmd.Parameters.AddWithValue("@pont", pont);
+                cmd.Parameters.AddWithValue("@kerdes", kerdes);
+                cmd.Parameters.AddWithValue("@valasz", Valasz);
 
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
-                throw new Exception("Sikertelen csapat pont frisités");
+                throw new Exception("Sikertelen kérdésfelvétel!");
             }
         }
         #endregion

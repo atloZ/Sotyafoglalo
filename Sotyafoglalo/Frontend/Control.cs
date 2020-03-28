@@ -40,6 +40,7 @@ namespace Sotyafoglalo
         private int joHelye;
         private bool isItValasztos = true;
         private int joTipp;
+        
         //tippkérdéshez kell
         private int tamadoTipp;
         private int vedoTipp;
@@ -159,15 +160,9 @@ namespace Sotyafoglalo
             t_valaszDomainUpDown.Enabled = false;
             v_valaszDomainUpDown.Enabled = false;
 
-            //dbhelper
-            bevitelForm = new Bejelentkezes();
-            StreamReader kerdesInput = new StreamReader(bevitelForm.KerdesekPath1);
-            while (!kerdesInput.EndOfStream)
-            {
-                string[] beolvasott = kerdesInput.ReadLine().Split(';');
-                kerdesekList.Add(new Kerdes(beolvasott[1], beolvasott[2], beolvasott[3], beolvasott[4], beolvasott[5], Convert.ToInt32(beolvasott[0])));
-                kerdesSzam++;
-            }
+            kerdesekList = DataBaseHelper.getKerdesek();
+
+            kerdesSzam = kerdesekList.Count;
 
             hatralevoKerdesekSzama = kerdesSzam;
 
@@ -187,16 +182,7 @@ namespace Sotyafoglalo
                     throw new Exception("Hibás lépésgenerálás");
             }
 
-            //dbhelper
-            bevitelForm = new Bejelentkezes();
-            StreamReader tippelosek = new StreamReader(bevitelForm.TippkerdesekPath1);
-
-            while (!tippelosek.EndOfStream)
-            {
-                string[] beolv = tippelosek.ReadLine().Split(';');
-                tippekList.Add(new TippKerdes(beolv[1], Convert.ToInt32(beolv[0]), Convert.ToInt32(beolv[2])));
-                tippkerdesSzam++;
-            }
+            tippekList = DataBaseHelper.getTippKerdesek();
 
             korNyerteseLabel.Text = "";
         }
@@ -284,7 +270,6 @@ namespace Sotyafoglalo
                 v_valaszDomainUpDown.Enabled = true;
                 kerdesInditasButton.Enabled = false;
 
-                //dbhelper
                 Random kerdesRandom = new Random();
                 int aktualisSzam = kerdesRandom.Next(0, kerdesSzam);
                 Kerdes aktualisKerdes = kerdesekList[aktualisSzam];
