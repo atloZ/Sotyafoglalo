@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Adatok>
+  <Server>localhost</Server>
+  <Port>3306</Port>
+  <Database>sotyafoglalo_db</Database>
+  <Uid>Sotyafoglalo</Uid>
+  <Pwd>pin</Pwd>
+</Adatok>
