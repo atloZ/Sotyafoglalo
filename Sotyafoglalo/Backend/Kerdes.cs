@@ -54,6 +54,5 @@ namespace Sotyafoglalo.Backend
         {
             return this.kerdesID;
         }
-
     }
 }

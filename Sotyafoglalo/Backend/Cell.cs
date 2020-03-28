@@ -34,7 +34,7 @@ namespace Sotyafoglalo
 
         public void mezoTulajValtas(int requiredFieldOwner)
         {
-            mezoTulaj = requiredFieldOwner;
+            this.mezoTulaj = requiredFieldOwner;
         }
         public int getErtek()
         {

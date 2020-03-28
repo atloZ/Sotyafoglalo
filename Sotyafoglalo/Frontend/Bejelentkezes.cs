@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sotyafoglalo.Frontend;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,8 +15,6 @@ namespace Sotyafoglalo
     public partial class Bejelentkezes : Form
     {
         Control controlForm = new Control();
-
-        private Boolean elsoFutas = true;
 
         private int szamlalo;
         private int iskolaNevIndex;
@@ -108,7 +107,7 @@ namespace Sotyafoglalo
             }
         }
 
-        private void KeyDown(object sender, KeyEventArgs e)
+        private void select_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -145,6 +144,12 @@ namespace Sotyafoglalo
                     iskolaNevIndex = 0;
                 }
             }
+        }
+
+        private void adatKezelesButton_Click(object sender, EventArgs e)
+        {
+            AdatkezeloForm ak = new AdatkezeloForm();
+            ak.Show();
         }
     }
 }

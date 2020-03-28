@@ -50,6 +50,7 @@
             this.kerdesInditasButton = new System.Windows.Forms.Button();
             this.kerdesekSzamaLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.eredmenyHirdetesButton = new System.Windows.Forms.Button();
             this.t_CsapatGroupBox.SuspendLayout();
             this.v_CsapatGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -240,7 +241,7 @@
             this.jatekInditasButton.TabIndex = 7;
             this.jatekInditasButton.Text = "Játék kezdése";
             this.jatekInditasButton.UseVisualStyleBackColor = true;
-            this.jatekInditasButton.Click += new System.EventHandler(this.startGameBtn_Click);
+            this.jatekInditasButton.Click += new System.EventHandler(this.jatekInditasButton_Click);
             // 
             // korInditasButton
             // 
@@ -288,13 +289,26 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "ControlForm";
             // 
+            // eredmenyHirdetesButton
+            // 
+            this.eredmenyHirdetesButton.Enabled = false;
+            this.eredmenyHirdetesButton.Location = new System.Drawing.Point(23, 593);
+            this.eredmenyHirdetesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.eredmenyHirdetesButton.Name = "eredmenyHirdetesButton";
+            this.eredmenyHirdetesButton.Size = new System.Drawing.Size(371, 55);
+            this.eredmenyHirdetesButton.TabIndex = 9;
+            this.eredmenyHirdetesButton.Text = "Eredmény hirdetés most!";
+            this.eredmenyHirdetesButton.UseVisualStyleBackColor = true;
+            this.eredmenyHirdetesButton.Click += new System.EventHandler(this.eredmenyHirdetesButton_Click);
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 587);
+            this.ClientSize = new System.Drawing.Size(433, 676);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.kerdesekSzamaLabel);
+            this.Controls.Add(this.eredmenyHirdetesButton);
             this.Controls.Add(this.kerdesInditasButton);
             this.Controls.Add(this.korInditasButton);
             this.Controls.Add(this.jatekInditasButton);
@@ -341,5 +355,6 @@
         private System.Windows.Forms.Button v_tippOKButton;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label stopperLabel;
+        private System.Windows.Forms.Button eredmenyHirdetesButton;
     }
 }

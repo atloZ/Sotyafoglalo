@@ -1,4 +1,5 @@
 ﻿using Sotyafoglalo.Backend;
+using Sotyafoglalo.Frontend;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,7 +22,6 @@ namespace Sotyafoglalo
         private List<TippKerdes> tippekList = new List<TippKerdes>();
 
         private JatekTer jatekTerForm;
-        private Bejelentkezes bevitelForm;
 
         private int[] lepesek;
         private int kerdesSzam = 0;
@@ -40,7 +40,12 @@ namespace Sotyafoglalo
         private int joHelye;
         private bool isItValasztos = true;
         private int joTipp;
-        
+
+        //kerdeshez kell
+        private string tamadoValasz;
+        private string vedoValasz;
+        private int hanyanValaszoltak;
+
         //tippkérdéshez kell
         private int tamadoTipp;
         private int vedoTipp;
@@ -105,23 +110,7 @@ namespace Sotyafoglalo
             return null;
         }
 
-        private void showOnSecondaryScreen(Form f)
-        {
-            if (Screen.AllScreens.Length > 1)
-            {
-                f.StartPosition = FormStartPosition.Manual;
-                Screen screen = GetSecondaryScreen();
-                f.Location = screen.WorkingArea.Location;
-                f.Size = new Size(screen.WorkingArea.Width, screen.WorkingArea.Height);
-                f.Show();
-            }
-            else if (Screen.AllScreens.Length == 1)
-            {
-                f.Show();
-            }
-        }
-
-        private void startGameBtn_Click(object sender, EventArgs e)
+        private void jatekInditasButton_Click(object sender, EventArgs e)
         {
             jatekTerForm = new JatekTer(this);
             jatekTerForm.CsapatNevek = csapatNevek;
@@ -151,6 +140,7 @@ namespace Sotyafoglalo
 
             jatekInditasButton.Enabled = false;
             korInditasButton.Enabled = true;
+            eredmenyHirdetesButton.Enabled = true;
         }
 
         private void ControlForm_Load(object sender, EventArgs e)
@@ -189,19 +179,19 @@ namespace Sotyafoglalo
 
         private void startTurnBtn_Click(object sender, EventArgs e)
         {
+            if (kForm != null)
+            {
+                kForm.bezarhat = true;
+                kForm.Close();
+            }
+            if (tForm != null)
+            {
+                tForm.bezarhat = true;
+                tForm.Close();
+            }
             if (hatralevoKerdesekSzama > 0)
             {
                 korNyerteseLabel.Text = "Aktuális csapat válaszon mezőt!";
-                if (kForm != null)
-                {
-                    kForm.bezarhat = true;
-                    kForm.Close();
-                }
-                if (tForm != null)
-                {
-                    tForm.bezarhat = true;
-                    tForm.Close();
-                }
 
                 isItValasztos = true;
 
@@ -229,7 +219,13 @@ namespace Sotyafoglalo
             }
             else
             {
-                MessageBox.Show("Elfogytak a kérdések!");
+                if (MessageBox.Show("Elfogytak a kérdések!\nSzeretne eredményt hirdetni?", "Játék vége", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    this.Hide();
+                    jatekTerForm.Hide();
+                    EredmenyHirdetes eh = new EredmenyHirdetes(csapatNevek, jatekTerForm.CsapatPontok,csapatSzam);
+                    eh.Show();
+                }
             }
         }
 
@@ -335,9 +331,6 @@ namespace Sotyafoglalo
             }
         }
 
-        private string tamadoValasz = "";
-        private string vedoValasz = "";
-        private int hanyanValaszoltak = 0;
         private void OkButton1_Click(object sender, EventArgs e)
         {
             if (t_valaszDomainUpDown.Text != "")
@@ -385,6 +378,8 @@ namespace Sotyafoglalo
             t_valaszDomainUpDown.Enabled = false;
             v_valaszDomainUpDown.Enabled = false;
 
+            kForm.setBGColor(joHelye);
+
             if (vedoValasz == tamadoValasz)
             {
                 if (vedoValasz == joValasz)
@@ -395,7 +390,6 @@ namespace Sotyafoglalo
                 else
                 {
                     //ne adjon pontot 
-                    kForm.setBGColor(joHelye);
                     korNyerteseLabel.Text = "Senki";
                     lepesekIndex++;
 
@@ -405,7 +399,6 @@ namespace Sotyafoglalo
             }
             else if (vedoValasz == joValasz)
             {
-                kForm.setBGColor(joHelye);
                 vedoNyert();
                 lepesekIndex++;
                 korInditasButton.Enabled = true;
@@ -418,14 +411,12 @@ namespace Sotyafoglalo
                 //a védő veszítse el a pontot
                 tamadoNyert();
                 lepesekIndex++;
-
                 korInditasButton.Enabled = true;
                 kerdesInditasButton.Enabled = false;
             }
             else
             {
                 //senki nem kap semmit
-                kForm.setBGColor(joHelye);
                 korNyerteseLabel.Text = "Senki";
                 lepesekIndex++;
 
@@ -534,14 +525,14 @@ namespace Sotyafoglalo
 
         private void vedoNyert()
         {
-            jatekTerForm.setCsapatPont(vedoNum, 100);
+            jatekTerForm.setCsapatPont(vedoNum-1, 100);
             korNyerteseLabel.Text = csapatNevek[vedoNum-1];
         }
 
         private void tamadoNyert()
         {
-            jatekTerForm.setCsapatPont(lepesek[lepesekIndex], tamadottErtek);
-            jatekTerForm.setCsapatPont(vedoNum, -tamadottErtek);
+            jatekTerForm.setCsapatPont(lepesek[lepesekIndex]-1, tamadottErtek);
+            jatekTerForm.setCsapatPont(vedoNum-1, (-tamadottErtek));
             jatekTerForm.changeTerulet(tamadottX, tamadottY, lepesek[lepesekIndex], tamadottErtek);
             korNyerteseLabel.Text = csapatNevek[lepesek[lepesekIndex]-1];
         }
@@ -558,6 +549,17 @@ namespace Sotyafoglalo
         {
             t_gyorsabbCheckBox.Enabled = !v_gyorsabbCheckBox.Checked;
             v_gyorsabbCheckBox.Enabled = !t_gyorsabbCheckBox.Checked;
+        }
+
+        private void eredmenyHirdetesButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Elfogytak a kérdések!\nSzeretne eredményt hirdetni?", "Játék vége", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Hide();
+                jatekTerForm.Hide();
+                EredmenyHirdetes eh = new EredmenyHirdetes(csapatNevek, jatekTerForm.CsapatPontok, csapatSzam);
+                eh.Show();
+            }
         }
     }
 }

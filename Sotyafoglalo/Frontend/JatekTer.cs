@@ -33,9 +33,11 @@ namespace Sotyafoglalo
         private List<Label> pontok = new List<Label>();
 
         private int tamadoCsapatSzama;
+        private int[] csapatPontok = new int[4];
         public int CsapatSzam { get => csapatSzam; set => csapatSzam = value; }
         public string[] CsapatNevek { get => csapatNevek; set => csapatNevek = value; }
-        private int[] csapatPontok = new int[4];
+        public int[] CsapatPontok { get => csapatPontok; }
+
         #endregion
 
         public JatekTer()
@@ -133,6 +135,7 @@ namespace Sotyafoglalo
                     default:
                         break;
                 }
+                setCsapatPont(i, alapPont);
             }
             for (int i = csapatSzam; i < 4; i++)
             {

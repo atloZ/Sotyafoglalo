@@ -2,14 +2,13 @@
 using Sotyafoglalo.Backend;
 using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.IO;
 
 namespace Sotyafoglalo
 {
     class DataBaseHelper
     {
         #region Változok
-        private static readonly string connString = "Server=localhost;Port=3306;Database=db_sotyafoglalo;Uid=Sotyafoglalo;Pwd=pin;";
         private static MySqlConnection conn = null;
         private static MySqlCommand cmd = null;
         #endregion
@@ -17,45 +16,61 @@ namespace Sotyafoglalo
         #region Csatlakozás és tábla teszt
         private static string getConnString()
         {
-            string s = "";
-            using (XmlReader reader = XmlReader.Create(@"database_con_adat.xml"))
+            string serverName = "Server=";
+            string portNUmber = "Port=";
+            string databaseName = "Database=";
+            string userName = "Uid=";
+            string passwordValue = "Pwd=";
+
+            string configFile = AppDomain.CurrentDomain.BaseDirectory + "sotyafoglalo.cfg";
+            if (File.Exists(configFile))
             {
-                while (reader.Read())
+                foreach (var row in File.ReadAllLines(configFile))
                 {
-                    if (reader.IsStartElement())
+                    Console.WriteLine(row);
+                    string input1 = row.Split('=')[0];
+                    string input2 = row.Split('=')[1];
+                    switch (input1)
                     {
-                        //return only when you have START tag  
-                        switch (reader.Name.ToString())
-                        {
-                            case "Server":
-                                s += "Server=" + reader.ReadContentAsString() + ";";
-                                break;
-                            case "Port":
-                                s += "Port=" + reader.ReadContentAsString() + ";";
-                                break;
-                            case "Database":
-                                s += "Database=" + reader.ReadContentAsString() + ";";
-                                break;
-                            case "Uid":
-                                s += "Uid=" + reader.ReadContentAsString() + ";";
-                                break;
-                            case "Pwd":
-                                s += "Pwd=" + reader.ReadContentAsString() + ";";
-                                break;
-                        }
+                        case "SERVER":
+                            serverName += input2 + ";";
+                            break;
+                        case "PORT":
+                            portNUmber += input2 + ";";
+                            break;
+                        case "DATABASE":
+                            databaseName += input2 + ";";
+                            break;
+                        case "USER":
+                            userName += input2 + ";";
+                            break;
+                        case "PASSWORD":
+                            passwordValue += input2 + ";";
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
-            
-            return s;
-        }   //hiányos
+            else
+            {
+                Console.WriteLine("Nem létezik a config állomány, így default beállításokkal indul a program");
+                serverName += "localhost;";
+                portNUmber += "3306;";
+                databaseName += "db_sotyafoglalo;";
+                userName += "Sotyafoglalo;";
+                passwordValue += "pin;";
+            }
+
+            return serverName + portNUmber + databaseName + userName + passwordValue;
+        }
 
         public static Boolean csatlakozas()
         {
             try
             {
-                //conn = new MySqlConnection(getConnString());
-                conn = new MySqlConnection(connString);
+                MySQL_Start();
+                conn = new MySqlConnection(getConnString());
                 conn.Open();
                 tablakTesztelese();
             }
@@ -71,6 +86,7 @@ namespace Sotyafoglalo
             try
             {
                 conn.Close();
+                MySQL_Stop();
             }
             catch (Exception)
             {
@@ -109,6 +125,33 @@ namespace Sotyafoglalo
                 throw new Exception("hiba a táblák tesztelése során");
             }
         }
+        #endregion
+
+        #region MySQL szerver
+        private static void MySQL_Start()
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string databaseStarterPath = "/C" + AppDomain.CurrentDomain.BaseDirectory + "database\\start.exe";
+            startInfo.Arguments = databaseStarterPath;
+            process.StartInfo = startInfo;
+            process.Start();
+        }
+
+        private static void MySQL_Stop()
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string databaseStarterPath = "/C" + AppDomain.CurrentDomain.BaseDirectory + "database\\stop.exe";
+            startInfo.Arguments = databaseStarterPath;
+            process.StartInfo = startInfo;
+            process.Start();
+        }
+
         #endregion
 
         #region Funkciók
@@ -163,7 +206,7 @@ namespace Sotyafoglalo
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Hiba lépet fel az adatbázis létrehozása közben!");
             }
@@ -244,6 +287,36 @@ namespace Sotyafoglalo
             catch (Exception)
             {
                 throw new Exception("Sikertelen kérdésfelvétel!");
+            }
+        }
+
+        public static void removeTippKerdes(string kerdes)
+        {
+            try
+            {
+                cmd = new MySqlCommand("DELETE FROM `tippkerdes` WHERE `kerdes` = @kerdes", conn);
+                cmd.Parameters.AddWithValue("@kerdes", kerdes);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Hibás adattörlés");
+            }
+        }
+
+        public static void removeKerdes(string kerdes)
+        {
+            try
+            {
+                cmd = new MySqlCommand("CALL removeKerdes(@kerdes);", conn);
+                cmd.Parameters.AddWithValue("@kerdes", kerdes);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Hibás adattörlés");
             }
         }
         #endregion

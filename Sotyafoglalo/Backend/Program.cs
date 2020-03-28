@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sotyafoglalo.Frontend;
+using System;
 using System.Windows.Forms;
 
 namespace Sotyafoglalo
