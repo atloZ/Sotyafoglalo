@@ -8,12 +8,12 @@ namespace Sotyafoglalo
 {
     class DataBaseHelper
     {
-        #region Változok
+        #region Valtozok
         private static MySqlConnection conn = null;
         private static MySqlCommand cmd = null;
         #endregion
 
-        #region Csatlakozás és tábla teszt
+        #region Csatlakozas es tabla teszt
         private static string getConnString()
         {
             string serverName = "Server=";
@@ -154,7 +154,7 @@ namespace Sotyafoglalo
 
         #endregion
 
-        #region Funkciók
+        #region Funkciok
         public static List<Kerdes> getKerdesek()
         {
             List<Kerdes> adatok = new List<Kerdes>();

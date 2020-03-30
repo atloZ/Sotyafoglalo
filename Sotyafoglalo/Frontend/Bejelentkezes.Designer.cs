@@ -125,7 +125,7 @@
             this.alapButton.TabIndex = 6;
             this.alapButton.Text = "Alap";
             this.alapButton.UseVisualStyleBackColor = true;
-            this.alapButton.Click += new System.EventHandler(this.alapButton_Click);
+            this.alapButton.Click += new System.EventHandler(this.Bevitel_Load);
             // 
             // adatKezelesButton
             // 

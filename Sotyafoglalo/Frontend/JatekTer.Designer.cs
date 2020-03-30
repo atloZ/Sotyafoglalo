@@ -890,7 +890,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Sotyafoglaló";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.JatekTer_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.JatekTer_FormClosing);
             this.Load += new System.EventHandler(this.JatekTer_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.mapContainer.ResumeLayout(false);

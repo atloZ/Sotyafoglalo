@@ -388,7 +388,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AdatkezeloForm";
-            this.Text = "AdatkezeloForm";
+            this.Text = "Adatkezelő";
             this.tabControl1.ResumeLayout(false);
             this.kerdesekTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kerdeskDataGridView)).EndInit();

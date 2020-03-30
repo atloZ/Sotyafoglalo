@@ -118,7 +118,7 @@ namespace Sotyafoglalo.Frontend
         private void tippTorlolButton_Click(object sender, EventArgs e)
         {
             int i = tippDataGridView.CurrentCell.RowIndex;
-            if (i != null)
+            if (i != 0)
             {
                 for (int j = 0; j < tippKerdesek.Count; j++)
                 {
@@ -134,7 +134,7 @@ namespace Sotyafoglalo.Frontend
         private void kerdesTorolButton_Click(object sender, EventArgs e)
         {
             int i = kerdeskDataGridView.CurrentCell.RowIndex;
-            if (i != null)
+            if (i != 0)
             {
                 for (int j = 0; j < kerdesek.Count; j++)
                 {

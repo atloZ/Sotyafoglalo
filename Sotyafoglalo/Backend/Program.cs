@@ -1,5 +1,4 @@
-﻿using Sotyafoglalo.Frontend;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace Sotyafoglalo
@@ -22,7 +21,7 @@ namespace Sotyafoglalo
                 }
                 else
                 {
-                    throw new Exception("Hiányos adatbázis!\n" +
+                    MessageBox.Show("Hiányos adatbázis!\n" +
                         "Keresd a fejlesztőt: Rekenei Zolta +36702395180");
                 }
             }

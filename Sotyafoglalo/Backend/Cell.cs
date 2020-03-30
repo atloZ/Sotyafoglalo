@@ -16,6 +16,7 @@ namespace Sotyafoglalo
         public static readonly int VAR_MEZO_ERTEK = 0;
         public static readonly int BELSO_MEZO_ERTEK = 300;
         public static readonly int KULSO_MEZO_ERTEK = 400;
+
         private PictureBox picBoxRef;
         private int mezoTulaj;
         private int mezoErteke;

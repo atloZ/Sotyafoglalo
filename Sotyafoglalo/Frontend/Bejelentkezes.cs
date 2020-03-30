@@ -1,52 +1,29 @@
 ﻿using Sotyafoglalo.Frontend;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sotyafoglalo
 {
     public partial class Bejelentkezes : Form
     {
+        #region Valtozok
         Control controlForm = new Control();
 
         private int szamlalo;
         private int iskolaNevIndex;
-        private string[] iskolaNev = { "Arany", "Benedek", "Dr. Mező alsó", "Dr. Mező felső", "Dr. Török Béla", "Heltai", "Herman alsó", "Herman felső	", "Hunyadi", "Jókai", "Jókai", "Kaffka", "Liszt", "Móra", "Munkácsy alsó", "Munkácsy felső", "Németh Imre", "Széchenyi", "Vakok" };
-
-        private static int csapatSzam = 0;
-        private static string csapatNev1 = null;
-        private static string csapatNev2 = null;
-        private static string csapatNev3 = null;
-        private static string csapatNev4 = null;
-
-        public static int CsapatSzam { get => csapatSzam; }
-        public static string CsapatNev1 { get => csapatNev1; }
-        public static string CsapatNev2 { get => csapatNev2; }
-        public static string CsapatNev3 { get => csapatNev3; }
-        public static string CsapatNev4 { get => csapatNev4; }
+        private readonly string[] iskolaNev = { "Arany", "Benedek", "Dr. Mező alsó", "Dr. Mező felső", "Dr. Török Béla", "Heltai", "Herman alsó", "Herman felső	", "Hunyadi", "Jókai", "Jókai", "Kaffka", "Liszt", "Móra", "Munkácsy alsó", "Munkácsy felső", "Németh Imre", "Széchenyi", "Vakok" };
+        #endregion
 
         public Bejelentkezes()
         {
             InitializeComponent();
-
         }
-
+        
+        #region Funkciok
         private void Bevitel_Load(object sender, EventArgs e)
         {
             szamlalo = 1;
 
-            csapatSzam = 0;
-            csapatNev1 = null;
-            csapatNev2 = null;
-            csapatNev3 = null;
-            csapatNev4 = null;
             csapatNevLabel.Text = szamlalo + ". Csapat neve:";
             csapatNevButton.Enabled = false;
             csapatNevTextBox.Enabled = false;
@@ -54,11 +31,6 @@ namespace Sotyafoglalo
             csapatSzamLabel.Enabled = true;
             csapatSzamNumericUpDown.Enabled = true;
             csapatSzamButton.Enabled = true;
-        }
-
-        private void alapButton_Click(object sender, EventArgs e)
-        {
-            Bevitel_Load(sender, e);
         }
 
         private void csapatSzamButton_Click(object sender, EventArgs e)
@@ -91,8 +63,8 @@ namespace Sotyafoglalo
 
                 if (szamlalo == controlForm.CsapatSzam)
                 {
-                    this.Hide();
                     controlForm.Show();
+                    this.Hide();
                 }
 
                 szamlalo++;
@@ -148,8 +120,8 @@ namespace Sotyafoglalo
 
         private void adatKezelesButton_Click(object sender, EventArgs e)
         {
-            AdatkezeloForm ak = new AdatkezeloForm();
-            ak.Show();
+            new AdatkezeloForm().Show();
         }
+        #endregion
     }
 }

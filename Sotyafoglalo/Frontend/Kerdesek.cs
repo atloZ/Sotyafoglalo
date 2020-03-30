@@ -7,17 +7,21 @@ namespace Sotyafoglalo
 {
     public partial class Kerdesek : Form
     {
+        #region Valtozok
         private string[] kerdesTomb = new string[5];
         private string[] labelek = new string[] { "A", "B", "C", "D" };
         private List<Label> valaszHelyek = new List<Label>();
         public Boolean bezarhat = false;
 
+        public string[] KerdesTomb { get => kerdesTomb; set => kerdesTomb = value; }
+        #endregion
+
         public Kerdesek()
         {
             InitializeComponent();
         }
-        public string[] KerdesTomb { get => kerdesTomb; set => kerdesTomb = value; }
 
+        #region Funkciok
         private void Kerdesek_Load(object sender, EventArgs e)
         {
             bezarhat = false;
@@ -34,7 +38,6 @@ namespace Sotyafoglalo
             {
                 valaszHelyek[i].Text = labelek[i] + ": " + kerdesTomb[i + 1];
             }
-
         }
         public void setBGColor(int rowNum)
         {
@@ -43,7 +46,7 @@ namespace Sotyafoglalo
 
         private void Kerdesek_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!bezarhat)
+            if (bezarhat)
             {
                 if (MessageBox.Show("Biztosan bezárod a kérdéseket?", "Bezárás", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 {
@@ -51,6 +54,13 @@ namespace Sotyafoglalo
                     this.Activate();
                 }
             }
+            else
+            {
+                MessageBox.Show("A kérdés még nem fejezödött be");
+                e.Cancel = true;
+                this.Activate();
+            } 
         }
+        #endregion
     }
 }

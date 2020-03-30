@@ -49,7 +49,6 @@
             this.korInditasButton = new System.Windows.Forms.Button();
             this.kerdesInditasButton = new System.Windows.Forms.Button();
             this.kerdesekSzamaLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.eredmenyHirdetesButton = new System.Windows.Forms.Button();
             this.t_CsapatGroupBox.SuspendLayout();
             this.v_CsapatGroupBox.SuspendLayout();
@@ -90,7 +89,7 @@
             this.t_kerdesOKButton.TabIndex = 2;
             this.t_kerdesOKButton.Text = "OK";
             this.t_kerdesOKButton.UseVisualStyleBackColor = true;
-            this.t_kerdesOKButton.Click += new System.EventHandler(this.OkButton1_Click);
+            this.t_kerdesOKButton.Click += new System.EventHandler(this.t_kerdesOKButton_Click);
             // 
             // v_kerdesOKButton
             // 
@@ -101,7 +100,7 @@
             this.v_kerdesOKButton.TabIndex = 2;
             this.v_kerdesOKButton.Text = "OK";
             this.v_kerdesOKButton.UseVisualStyleBackColor = true;
-            this.v_kerdesOKButton.Click += new System.EventHandler(this.okButton2_Click);
+            this.v_kerdesOKButton.Click += new System.EventHandler(this.v_kerdesOKButton_Click);
             // 
             // t_CsapatGroupBox
             // 
@@ -110,7 +109,7 @@
             this.t_CsapatGroupBox.Controls.Add(this.t_gyorsabbCheckBox);
             this.t_CsapatGroupBox.Controls.Add(this.t_valaszDomainUpDown);
             this.t_CsapatGroupBox.Controls.Add(this.t_kerdesOKButton);
-            this.t_CsapatGroupBox.Location = new System.Drawing.Point(15, 90);
+            this.t_CsapatGroupBox.Location = new System.Drawing.Point(12, 50);
             this.t_CsapatGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.t_CsapatGroupBox.Name = "t_CsapatGroupBox";
             this.t_CsapatGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -129,7 +128,7 @@
             this.t_tippOKButton.Text = "OK";
             this.t_tippOKButton.UseVisualStyleBackColor = true;
             this.t_tippOKButton.Visible = false;
-            this.t_tippOKButton.Click += new System.EventHandler(this.OKButton3_Click);
+            this.t_tippOKButton.Click += new System.EventHandler(this.t_tippOKButton_Click);
             // 
             // t_tippTextBox
             // 
@@ -152,7 +151,7 @@
             this.t_gyorsabbCheckBox.Text = "Gyorsabb";
             this.t_gyorsabbCheckBox.UseVisualStyleBackColor = true;
             this.t_gyorsabbCheckBox.Visible = false;
-            this.t_gyorsabbCheckBox.CheckedChanged += new System.EventHandler(this.gyorsabb1CheckBox_CheckedChanged);
+            this.t_gyorsabbCheckBox.CheckedChanged += new System.EventHandler(this.gyorsabbCheckBox_CheckedChanged);
             // 
             // v_CsapatGroupBox
             // 
@@ -161,7 +160,7 @@
             this.v_CsapatGroupBox.Controls.Add(this.v_gyorsabbCheckBox);
             this.v_CsapatGroupBox.Controls.Add(this.v_valaszDomainUpDown);
             this.v_CsapatGroupBox.Controls.Add(this.v_kerdesOKButton);
-            this.v_CsapatGroupBox.Location = new System.Drawing.Point(232, 90);
+            this.v_CsapatGroupBox.Location = new System.Drawing.Point(229, 50);
             this.v_CsapatGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.v_CsapatGroupBox.Name = "v_CsapatGroupBox";
             this.v_CsapatGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -180,7 +179,7 @@
             this.v_tippOKButton.Text = "OK";
             this.v_tippOKButton.UseVisualStyleBackColor = true;
             this.v_tippOKButton.Visible = false;
-            this.v_tippOKButton.Click += new System.EventHandler(this.OKButton4_Click);
+            this.v_tippOKButton.Click += new System.EventHandler(this.v_tippOKButton_Click);
             // 
             // v_tippTextBox
             // 
@@ -203,14 +202,14 @@
             this.v_gyorsabbCheckBox.Text = "Gyorsabb";
             this.v_gyorsabbCheckBox.UseVisualStyleBackColor = true;
             this.v_gyorsabbCheckBox.Visible = false;
-            this.v_gyorsabbCheckBox.CheckedChanged += new System.EventHandler(this.gyorsabb1CheckBox_CheckedChanged);
+            this.v_gyorsabbCheckBox.CheckedChanged += new System.EventHandler(this.gyorsabbCheckBox_CheckedChanged);
             // 
             // korNyerteseLabel
             // 
             this.korNyerteseLabel.AutoSize = true;
             this.korNyerteseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.korNyerteseLabel.ForeColor = System.Drawing.Color.Red;
-            this.korNyerteseLabel.Location = new System.Drawing.Point(17, 287);
+            this.korNyerteseLabel.Location = new System.Drawing.Point(14, 247);
             this.korNyerteseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.korNyerteseLabel.Name = "korNyerteseLabel";
             this.korNyerteseLabel.Size = new System.Drawing.Size(169, 25);
@@ -220,7 +219,7 @@
             // stopperLabel
             // 
             this.stopperLabel.AutoSize = true;
-            this.stopperLabel.Location = new System.Drawing.Point(16, 49);
+            this.stopperLabel.Location = new System.Drawing.Point(13, 9);
             this.stopperLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.stopperLabel.Name = "stopperLabel";
             this.stopperLabel.Size = new System.Drawing.Size(94, 17);
@@ -234,7 +233,7 @@
             // 
             // jatekInditasButton
             // 
-            this.jatekInditasButton.Location = new System.Drawing.Point(23, 357);
+            this.jatekInditasButton.Location = new System.Drawing.Point(20, 317);
             this.jatekInditasButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.jatekInditasButton.Name = "jatekInditasButton";
             this.jatekInditasButton.Size = new System.Drawing.Size(371, 54);
@@ -246,53 +245,40 @@
             // korInditasButton
             // 
             this.korInditasButton.Enabled = false;
-            this.korInditasButton.Location = new System.Drawing.Point(23, 438);
+            this.korInditasButton.Location = new System.Drawing.Point(20, 398);
             this.korInditasButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.korInditasButton.Name = "korInditasButton";
             this.korInditasButton.Size = new System.Drawing.Size(371, 47);
             this.korInditasButton.TabIndex = 8;
             this.korInditasButton.Text = "Kör kezdése";
             this.korInditasButton.UseVisualStyleBackColor = true;
-            this.korInditasButton.Click += new System.EventHandler(this.startTurnBtn_Click);
+            this.korInditasButton.Click += new System.EventHandler(this.korKezdeseButton_Click);
             // 
             // kerdesInditasButton
             // 
             this.kerdesInditasButton.Enabled = false;
-            this.kerdesInditasButton.Location = new System.Drawing.Point(23, 514);
+            this.kerdesInditasButton.Location = new System.Drawing.Point(20, 474);
             this.kerdesInditasButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.kerdesInditasButton.Name = "kerdesInditasButton";
             this.kerdesInditasButton.Size = new System.Drawing.Size(371, 55);
             this.kerdesInditasButton.TabIndex = 9;
             this.kerdesInditasButton.Text = "Kérdés inditó!";
             this.kerdesInditasButton.UseVisualStyleBackColor = true;
-            this.kerdesInditasButton.Click += new System.EventHandler(this.stopperBtn_Click);
+            this.kerdesInditasButton.Click += new System.EventHandler(this.kerdesInditoButton_Click);
             // 
             // kerdesekSzamaLabel
             // 
             this.kerdesekSzamaLabel.AutoSize = true;
-            this.kerdesekSzamaLabel.Location = new System.Drawing.Point(228, 49);
+            this.kerdesekSzamaLabel.Location = new System.Drawing.Point(225, 9);
             this.kerdesekSzamaLabel.Name = "kerdesekSzamaLabel";
             this.kerdesekSzamaLabel.Size = new System.Drawing.Size(90, 17);
             this.kerdesekSzamaLabel.TabIndex = 10;
             this.kerdesekSzamaLabel.Text = "Kérdés szám";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 11);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.MaximumSize = new System.Drawing.Size(235, 38);
-            this.label2.MinimumSize = new System.Drawing.Size(235, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(235, 38);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "ControlForm";
-            // 
             // eredmenyHirdetesButton
             // 
             this.eredmenyHirdetesButton.Enabled = false;
-            this.eredmenyHirdetesButton.Location = new System.Drawing.Point(23, 593);
+            this.eredmenyHirdetesButton.Location = new System.Drawing.Point(20, 553);
             this.eredmenyHirdetesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.eredmenyHirdetesButton.Name = "eredmenyHirdetesButton";
             this.eredmenyHirdetesButton.Size = new System.Drawing.Size(371, 55);
@@ -305,8 +291,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 676);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(417, 627);
             this.Controls.Add(this.kerdesekSzamaLabel);
             this.Controls.Add(this.eredmenyHirdetesButton);
             this.Controls.Add(this.kerdesInditasButton);
@@ -316,11 +301,12 @@
             this.Controls.Add(this.korNyerteseLabel);
             this.Controls.Add(this.v_CsapatGroupBox);
             this.Controls.Add(this.t_CsapatGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Control";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ControlForm";
+            this.Text = "Kontroll felület";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ControlForm_FormClosing);
             this.Load += new System.EventHandler(this.ControlForm_Load);
@@ -353,7 +339,6 @@
         private System.Windows.Forms.TextBox v_tippTextBox;
         private System.Windows.Forms.Button t_tippOKButton;
         private System.Windows.Forms.Button v_tippOKButton;
-        private System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label stopperLabel;
         private System.Windows.Forms.Button eredmenyHirdetesButton;
     }

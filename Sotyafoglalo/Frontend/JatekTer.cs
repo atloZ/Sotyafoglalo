@@ -23,8 +23,8 @@ namespace Sotyafoglalo
         private int csapatSzam;
         private string[] csapatNevek = new string[4];
         private bool futoKor = false;
+        private int[] csapatPontok = new int[4];
         
-        private Control controlForm = new Control();
         private Control cForm = null;
 
         private List<GroupBox> groups = new List<GroupBox>();
@@ -33,17 +33,10 @@ namespace Sotyafoglalo
         private List<Label> pontok = new List<Label>();
 
         private int tamadoCsapatSzama;
-        private int[] csapatPontok = new int[4];
         public int CsapatSzam { get => csapatSzam; set => csapatSzam = value; }
         public string[] CsapatNevek { get => csapatNevek; set => csapatNevek = value; }
         public int[] CsapatPontok { get => csapatPontok; }
-
         #endregion
-
-        public JatekTer()
-        {
-            InitializeComponent();
-        }
 
         public JatekTer(Form callingForm)
         {
@@ -51,6 +44,7 @@ namespace Sotyafoglalo
             InitializeComponent();
         }
 
+        #region Funkciok
         private void JatekTer_Load(object sender, EventArgs e)
         {
             pontok.Add(pointDisplay1);
@@ -206,7 +200,7 @@ namespace Sotyafoglalo
             {
                 cForm.setSecondTeamLabel(mezoTulaj);
                 futoKor = false;
-                cForm.getAttackedField(x, y, mezoErtek);
+                cForm.getTamadottMezo(x, y, mezoErtek);
             }
             else
             {
@@ -291,10 +285,14 @@ namespace Sotyafoglalo
             cellak[x, y].getPBox().Refresh();
         }
         
-        private void JatekTer_FormClosed(object sender, FormClosedEventArgs e)
+        private void JatekTer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Bejelentkezes obj = (Bejelentkezes)Application.OpenForms["Bevitel"];
-            obj.Close();
+            if (MessageBox.Show("Amig fut a játék addig ne csukj be! Biztos véget akkar vetni ennek?", "Játék vége", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                e.Cancel = true;
+            }
+            cForm.Dispose();
         }
+        #endregion
     }
 }
