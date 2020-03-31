@@ -18,6 +18,7 @@ namespace Sotyafoglalo
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     Application.Run(new Bejelentkezes());
+                    DataBaseHelper.kapcsolatZaras();
                 }
                 else
                 {

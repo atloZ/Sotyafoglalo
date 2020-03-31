@@ -52,8 +52,6 @@ namespace Sotyafoglalo.Frontend
         {
             if (MessageBox.Show("Biztosan bezárod a kérdéseket?", "Bezárás", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
-                DataBaseHelper.kapcsolatZaras(); 
-                
                 Application.ExitThread();
                 Environment.Exit(0);
             }

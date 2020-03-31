@@ -48,7 +48,6 @@ namespace Sotyafoglalo.Frontend
                 catch (Exception)
                 {
                     MessageBox.Show("helytelenValasz1Label karakterhasznélat!");
-                    hozzaAddButton_Click(sender,e);
                 }
                 loadMinden();
             }
@@ -121,7 +120,6 @@ namespace Sotyafoglalo.Frontend
                 catch (Exception)
                 {
                     MessageBox.Show("helytel karakterhasznélat!");
-                    tippHozzadButton_Click(sender, e);
                 }
                 loadMinden();
             }

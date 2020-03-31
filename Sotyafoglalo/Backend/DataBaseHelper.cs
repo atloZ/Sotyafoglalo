@@ -161,9 +161,10 @@ namespace Sotyafoglalo
             try
             {
                 cmd = new MySqlCommand(
-                    "SELECT k.kerdes, v.valasz, v.valaszHelyesE FROM kerdesek as k LEFT JOIN valaszok as v on k.id = v.kerdes_id ORDER BY k.kerdes;"
+                    "SELECT k.kerdes, v.valasz, v.valaszHelyesE " +
+                    "FROM kerdesek as k LEFT JOIN valaszok as v on k.id = v.kerdes_id " +
+                    "ORDER BY k.kerdes;"
                     , conn);
-
                 cmd.ExecuteNonQuery();
 
                 using (var myReader = cmd.ExecuteReader())
@@ -208,7 +209,7 @@ namespace Sotyafoglalo
             }
             catch (Exception)
             {
-                throw new Exception("Hiba lépet fel az adatbázis létrehozása közben!");
+                throw new Exception("Hiba lépet fel az adatbázis feltöltése közben!");
             }
 
             return adatok;
@@ -239,35 +240,96 @@ namespace Sotyafoglalo
             }
             catch (Exception)
             {
-                throw new Exception("Hiba lépet fel az adatbázis létrehozása közben!");
+                throw new Exception("Hiba lépet fel az adatbázis feltöltése közben!");
             }
 
             return adatok;
+        }
+
+        private static int getKerdesid(string kerdes)
+        {
+            int id = -1;
+            try
+            {
+                cmd = new MySqlCommand(
+                    "SELECT id " +
+                    "FROM kerdesek " +
+                    "WHERE kerdes = @kerdes", conn);
+
+                cmd.Parameters.AddWithValue("@kerdes", kerdes);
+
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("hibás kérdés felvétel!");
+            }
+            return id;
+        }
+        
+        private static void setNewValasz(string valasz, int kerdesId, bool helyesE)
+        {
+            try
+            {
+                cmd = new MySqlCommand(
+                    "INSERT INTO `valaszok`" +
+                    "( " +
+                        "`valasz`, " +
+                        "`valaszHelyesE`, " +
+                        "`kerdes_id` " +
+                    ") " +
+                    "VALUES" +
+                    "(" +
+                        "@valasz, " +
+                        "@helyesE, " +
+                        "@kerdesId) ;"
+                , conn);
+
+                cmd.Parameters.AddWithValue("@valasz", valasz);
+                cmd.Parameters.AddWithValue("@helyesE", helyesE);
+                cmd.Parameters.AddWithValue("@kerdesId", kerdesId);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("hibás kérdés felvétel!");
+            }
+        }
+
+        private static void setNewKerdes(string kerdes)
+        {
+            try
+            {
+                cmd = new MySqlCommand(
+                    "INSERT INTO `kerdesek`(`kerdes`) VALUES(@kerdes);"
+                , conn);
+
+                cmd.Parameters.AddWithValue("@kerdes", kerdes);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new Exception("hibás kérdés felvétel!");
+            }
         }
 
         public static void addUjKerdes(string kerdes, string helyesValasz, string valasz2, string valasz3, string valasz4)
         {
             try
             {
-                cmd = new MySqlCommand(
-                    "call addKerdesWithValasz(" +
-                        "@kerdes, " +
-                        "@helyesValasz, " +
-                        "@valasz2, " +
-                        "@valasz3, " +
-                        "@valasz4" +
-                    ")", conn);
-
-                cmd.Parameters.AddWithValue("@kerdes", kerdes);
-                cmd.Parameters.AddWithValue("@helyesValasz", helyesValasz);
-                cmd.Parameters.AddWithValue("@valasz2", valasz2);
-                cmd.Parameters.AddWithValue("@valasz3", valasz3);
-                cmd.Parameters.AddWithValue("@valasz4", valasz4);
-
-                cmd.ExecuteNonQuery();
+                setNewKerdes(kerdes);
+                int kerdesId = getKerdesid(kerdes);
+                setNewValasz(helyesValasz, kerdesId, true);
+                setNewValasz(valasz2, kerdesId, false);
+                setNewValasz(valasz3, kerdesId, false);
+                setNewValasz(valasz4, kerdesId, false);
             }
             catch (Exception)
             {
+
                 throw new Exception("Sikertelen kérdésfelvétel!");
             }
         }
@@ -309,13 +371,14 @@ namespace Sotyafoglalo
         {
             try
             {
-                cmd = new MySqlCommand("CALL removeKerdes(@kerdes);", conn);
-                cmd.Parameters.AddWithValue("@kerdes", kerdes);
+                int kerdesId = getKerdesid(kerdes);
+                cmd = new MySqlCommand("DELETE FROM `valaszok` WHERE `kerdes_id` = @kerdesId ;", conn);
+                cmd = new MySqlCommand("DELETE FROM `kerdesek` WHERE `id` = @kerdesId ;", conn);
+                cmd.Parameters.AddWithValue("@kerdesId", kerdesId);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
-
                 throw new Exception("Hibás adattörlés");
             }
         }
